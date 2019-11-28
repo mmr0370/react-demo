@@ -20,8 +20,8 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                loader: ['style-loader', 'css-loader?minimize']
+                test: /\.css|scss$/,
+                loader: ['style-loader','css-loader', 'sass-loader']
             },
             {
                 test: /\.(png|jpg|gif|svg(\?v=\d+\.\d+\.\d+)?|woff|eot|ttf)$/,

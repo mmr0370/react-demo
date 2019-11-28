@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import App from './App';
 
 
 ReactDom.render(
-<div>
-<h1>the first webpack react demo</h1>
-</div>,
+<App/>,
 document.getElementById('root')
-)
+);
