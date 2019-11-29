@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Counter from '../Component/Counter';
 
-
-
 const mapStateToprops = state=>{
-    console.log(state);
     return {
         count: state.countReducer.count
     }
