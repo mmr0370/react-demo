@@ -20,16 +20,17 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css|scss$/,
+                test: /\.s?[ac]ss$/,
                 loader:[
                     {
                         loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: process.env.NODE_ENV === 'development',
-                        },
                     },
-                    'css-loader',
-                    'sass-loader',
+                    { loader: 'css-loader', options: { url: false, sourceMap: true } },
+                    {
+                        loader: 'postcss-loader',
+                        options: {}
+                    },
+                    { loader: 'sass-loader', options: { sourceMap: true }}
                 ],
                 exclude: /node_modules/
             },
@@ -53,19 +54,8 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new webpack.ProgressPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src/index.html'),
-            title: 'demo',
-            inject: 'body',
-            minify: {
-                minifyCSS: true,
-                removeComments: true,
-                collapseWhitespace: true
-            }
-        }),
         new MiniCssExtractPlugin({
-            filename: '[name].[chunkhash:8].css',
-            chunkFilename: '[id].css'
+            filename: 'style.css'
         }),
     ]
 };
