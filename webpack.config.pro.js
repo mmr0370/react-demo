@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+// css压缩
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
@@ -9,13 +10,13 @@ module.exports = merge(baseConfig, {
     optimization: {
         minimizer: [
             //压缩CSS代码
-            new OptimizeCss({
-                cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
-                cssProcessorOptions: {
-                    discardComments: { removeAll: true }
-                },
-                canPrint: true //是否将插件信息打印到控制台
-            }),
+            // new OptimizeCss({
+            //     cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
+            //     cssProcessorOptions: {
+            //         discardComments: { removeAll: true }
+            //     },
+            //     canPrint: true //是否将插件信息打印到控制台
+            // }),
             //压缩js代码
             new UglifyJsPlugin({
                 //启用文件缓存
@@ -31,6 +32,12 @@ module.exports = merge(baseConfig, {
         //使用插件定义全局变量DEV
         new webpack.DefinePlugin({
             ENV:JSON.stringify('production')
+        }),
+        new OptimizeCss({
+            assetNameRegExp: /\.style\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: { discardComments: { removeAll: true } },
+            canPrint: true
         })
     ]
 });

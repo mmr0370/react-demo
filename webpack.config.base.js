@@ -4,15 +4,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //将css提取到单独的文件中
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// css压缩
-const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 // 清除build/dist文件夹文件
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // 压缩js文件
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
     entry: path.resolve(__dirname, 'src/index'),
     output: {
         filename: "js/[name].[hash:6].js",
@@ -24,7 +21,16 @@ module.exports = {
         rules: [
             {
                 test: /\.css|scss$/,
-                use: [MiniCssExtractPlugin.loader,'style-loader', 'css-loader', 'sass-loader'],
+                loader:[
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: process.env.NODE_ENV === 'development',
+                        },
+                    },
+                    'css-loader',
+                    'sass-loader',
+                ],
                 exclude: /node_modules/
             },
             {
@@ -58,8 +64,8 @@ module.exports = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css',
-        })
+            filename: '[name].[chunkhash:8].css',
+            chunkFilename: '[id].css'
+        }),
     ]
 };
