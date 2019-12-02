@@ -14,14 +14,14 @@ module.exports = {
     output: {
         filename: "js/[name].[hash:6].js",
         publicPath: "/",
-        chunkFilename: 'js/[name].[chunkhash:8].js',
+        // chunkFilename: 'bundle.[chunkhash:8].min.js',
         path: path.resolve(__dirname, 'build')
     },
     module: {
         rules: [
             {
                 test: /\.s?[ac]ss$/,
-                loader:[
+                use:[
                     {
                         loader: MiniCssExtractPlugin.loader,
                     },
@@ -55,7 +55,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new webpack.ProgressPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'style.css'
+            filename: '[name].[chunkhash:6].min.css'
         }),
     ]
 };

@@ -10,9 +10,6 @@
   },
   "author": "",
   "license": "ISC",
-  "sideEffects": [
-    "*.css"
-  ],
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/helper-plugin-utils": "^7.0.0",
